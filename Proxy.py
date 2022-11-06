@@ -24,9 +24,9 @@ class Proxy:
         proxy = {'http': '%s://%s:%s' % (protocol, ip, port), 'https': '%s://%s:%s' % (protocol, ip, port)}
         try:
             response = str(requests.get('https://api.ipify.org', headers={'user-agent': Useragent.Devices().random()}, proxies=proxy).text)
-            printf(f"Info: {id} identity is '{response}'", mt="info")
+            printf(f"Info: {id} - [{ip}:{port}] - identity is '{response}'", mt="info")
         except Exception:
-            printf(f"Error: attempt to get identity failed.", mt="error")
+            printf(f"Error: attempt to get - [{ip}:{port}] - identity failed.", mt="error")
 
     def new(self, id:str, proxy_data:dict, controlPort:int):
         protocol: str = proxy_data['protocol']
@@ -36,14 +36,14 @@ class Proxy:
         proxy = {'http': '%s://%s:%s' % (protocol, ip, port), 'https': '%s://%s:%s' % (protocol, ip, port)}
         try:
             response = str(requests.get("https://api.ipify.org", headers={"user-agent": Useragent.Devices().random()}, proxies=proxy).text)
-            printf(f"Info: current identity is '{response}'", mt="info")
+            printf(f"Info: current - [{ip}:{port}] - identity is '{response}'", mt="info")
 
             with Controller.from_port(port=controlPort) as controller:
                 controller.authenticate(password=password)
                 controller.signal(Signal.NEWNYM)
                 controller.close()
                 response = str(requests.get("https://api.ipify.org", headers={"user-agent": Useragent.Devices().random()}, proxies=proxy).text)
-            printf(f"Info: new identity is '{response}'", mt="info")
+            printf(f"Info: new - [{ip}:{port}] - identity is '{response}'", mt="info")
         except Exception:
-            printf(f"Error: failed to get new identity for {id}.", mt="error")
+            printf(f"Error: failed to get - [{ip}:{port}] - new identity.", mt="error")
 proxy = Proxy()

@@ -27,8 +27,10 @@ __help__ = {
         "show": "Show bruteforce options",
         "set": {
             # "threads": "Threads as a <number> of bruteforce (per proxy)",  # 3
-            "delay": "Delay in <seconds> between every request",  # 3
-            "timeout": "Timeout in <seconds> for every request before it disconnect",  # 15
+            "rest": "Rest per <minutes> when over requesting",  # 3
+            "sound": "<sound> to play when finding password", # alarm-siren.wav
+            "delay": "Delay in <seconds> between every request", # 3
+            "timeout": "Timeout in <seconds> for every request before it disconnect", # 15
         }
     },
     "bruteforce": {
@@ -45,6 +47,7 @@ __help__ = {
         "sort": {"ascending": "Sort passwords from a-z", "descending": "Sort passwords from z-a",
                  "shuffle": "Randomize passwords ordering (shake)"},
         "add": "Manually add <password>",  # add manually
+        "retry": "Shows the passwords that couldn't be tried REASON(a lot of requests OR ip blocked & etc..), to try it again.",  # remove manually
         "remove": "Manually remove <password>",  # remove manually
         "clear": "Clear passwords list *ALL OF IT*"  # clear all passwords list
     },

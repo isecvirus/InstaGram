@@ -25,6 +25,7 @@ style = Style.from_dict(
         "arg1": "#09C406 bold",
         "arg2": "#06C1C4",
         "arg3": "#B0B0B0",
+        "query-username": "purple",
         "trailing-input": "#ff1500 bold", # wrong input color foreground
         "label": "bg:#B0B0B0",
         "value": "bg:#B0B0B0 bold",
