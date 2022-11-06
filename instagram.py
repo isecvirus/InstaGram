@@ -1,12 +1,23 @@
 #!/usr/bin/python3
 import builtins
+import datetime
 import json
+import os
+import random
+import re
+import subprocess
+import sys
+import threading
+import time
 
+import requests
+from playsound import playsound
 from prompt_toolkit import HTML, PromptSession, print_formatted_text as print
 from prompt_toolkit.application import get_app
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.clipboard.pyperclip import PyperclipClipboard
 from prompt_toolkit.completion import NestedCompleter, PathCompleter
+from prompt_toolkit.contrib.regular_languages.compiler import compile
 from prompt_toolkit.contrib.regular_languages.lexer import GrammarLexer
 from prompt_toolkit.formatted_text import fragment_list_width, to_formatted_text, merge_formatted_text
 from prompt_toolkit.history import InMemoryHistory
@@ -14,16 +25,9 @@ from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.lexers import SimpleLexer
 from prompt_toolkit.shortcuts import set_title, yes_no_dialog, input_dialog, confirm
 from prompt_toolkit.styles import Style
-from prompt_toolkit.contrib.regular_languages.compiler import compile
-import datetime
-import random
-import re
-import threading
-import time
-import requests
-import os
-from playsound import playsound
 from rich.console import Console
+
+from Help import __help__
 from Login import Login
 from Printf import printf
 from Proxy import proxy
@@ -32,7 +36,6 @@ from Timer import timer
 from Validator import validator
 from table import table
 from vars import style
-from Help import __help__
 
 
 class InstaGram:
@@ -192,7 +195,7 @@ class InstaGram:
                         else:
                             set_title(self.tool_name)
                 elif insta_reg[0] == "exit":
-                    exit()
+                    sys.exit()
                 elif insta_reg[0] == "clear":
                     self.ClearScreen()
                 elif insta_reg[0] == "history":
@@ -522,9 +525,13 @@ class InstaGram:
 
     def ClearScreen(self):
         try:
-            os.system("clear")
+            [
+                subprocess.Popen(cmd, shell=True, stderr=subprocess.PIPE)
+                for cmd in
+                ["clear", "cls"]
+            ]
         except Exception:
-            os.system("cls")
+            pass
 
     def YesNo(self, message: str, title: str = "InstaGram", yes: str = "Yes", no: str = "No"):
         style = Style.from_dict({
@@ -705,7 +712,7 @@ class InstaGram:
                                         with open(f"{target}.password", "a") as target_password_found:
                                             target_password_found.write(f"{target} => '{password}'\n")
                                         target_password_found.close()
-                                        exit("*** HE/SHE JUST GOT PWND ***")
+                                        sys.exit("*** HE/SHE JUST GOT PWND ***")
                                     elif login_attempt == False:
                                         t = str(datetime.datetime.now().strftime("%Y/%m/%d %I:%M:%S %p"))
                                         printf(f"Wrong: [{t}] - {self.target} => '{password}'", mt="error")
@@ -723,22 +730,10 @@ class InstaGram:
 
                     threading.Thread(target=Thread_Proxy).start()
                     time.sleep(1)  # to avoid proxies process mixing
-
-                # if len(retry_passwords) > 0:
-                #     printf("Warning: there is '%s' passwords that couldn't be tried" % len(retry_passwords), mt="warn")
-                #     random = target + "_" + randomize.id(length=10) + ".retry"
-                #     printf("Info: all the '%s' passwords will be writen to '%s'" % (len(retry_passwords), random), mt="info")
-                #     with open(random, "w") as retry_file:
-                #         retry_file.write("\n".join(retry_passwords))
-                #     retry_file.close()
-                #     printf("Info: all the '%s' passwords saved to '%s' successfully (RETRY IT AGAIN)" % (len(retry_passwords), random), mt="info")
-                # else:
-                #     printf("Info: there is no passwords in the retry passwords list", mt="info")
             else:
                 printf("Error: passwords is the big deal, add some passwords", mt="error")
         else:
             printf("Error: you can't go without proxies", mt="error")
-
 
 if __name__ == "__main__":
     ig = InstaGram()
