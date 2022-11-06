@@ -1,4 +1,5 @@
 __help__ = {
+    "@[USERNAME]": "Get instagram account information, Example: @secvirus",
     "target": ["<Target username> to set the little poor target (victim)", "Without <Target username> will output the <Target username>"],
     "wordlist": {
         "list": "List all added wordlists.",
