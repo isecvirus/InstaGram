@@ -1,5 +1,5 @@
 ![logo](logo/InstaGram4.png)
-# InstaGram
+# InstaGram (v1.1.0-beta)
 CLI Instagram bruteforce 😈
 
 # Bugs?
