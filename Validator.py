@@ -19,7 +19,7 @@ class IP2NUM:
         o2 = ((self.max_octet * self.max_octet) * self.i2)
         o3 = (self.max_octet * self.i3)
         o4 = self.i4
-        return (o1 + o2 + o3 + o4)
+        return o1 + o2 + o3 + o4
 
 class Validator:
     def protocol(self, proto):
@@ -27,15 +27,15 @@ class Validator:
     def ip(self, ip:str):
         try:
             num = IP2NUM(ip).get()
-            if num >=0 and num <= 4294967295:
+            if 0 <= num <= 4294967295: # num >=0 and num <= 4294967295
                 return True
             else:
                 return False
         except Exception:
             return False
-    def port(self, port:int or str):
+    def port(self, port: int or str):
         try:
-            return int(port) >= 0 and int(port) <= 65535
+            return 0 <= int(port) <= 65535
         except Exception:
             return False
 
